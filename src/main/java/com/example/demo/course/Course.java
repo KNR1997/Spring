@@ -1,24 +1,40 @@
-package com.example.demo.topic;
+package com.example.demo.course;
 
+import com.example.demo.topic.Topic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Topic {
+public class Course {
 
     @Id
     private String id;
     private String name;
     private String description;
 
-    public Topic(String id, String name, String description) {
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public Course(String id, String name, String description, String topicId) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
+        this.topic = new Topic(topicId, "", "");
     }
 
-    public Topic() {
+    public Course() {
     }
 
     public String getId() {
